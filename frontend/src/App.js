@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getAllStaff } from './client.js'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Table, Empty } from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -12,6 +12,23 @@ import './App.css';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+const columns = [
+  {
+    title: 'Id',
+    dataIndex: 'id',
+    key: 'id',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+];
 
 function App() {
   const [staff, setStaff] = useState([]);
@@ -30,9 +47,18 @@ function App() {
     fetchStaff();
   }, []);
 
-  if (staff.length < 1) {
-    return "no data";
+  const renderStaff = () => {
+    if (staff.length < 1) {
+      return <Empty />;
+    }
+    return <Table dataSource={staff}
+    columns={columns}
+    bordered
+    title = {() => 'Staff'}
+    rowKey={(staff) => staff.id}/>;
   }
+
+
   return <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={collapsed}
                  onCollapse={setCollapsed}>
@@ -66,7 +92,7 @@ function App() {
                       <Breadcrumb.Item>Bill</Breadcrumb.Item>
                   </Breadcrumb>
                   <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                      Bill is a cat.
+                    { renderStaff() }
                   </div>
               </Content>
               <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
