@@ -18,7 +18,12 @@ function App() {
     fetchStaff();
   }, []);
 
-  return <p>{staff.length}</p>
+  if (staff.length < 1) {
+    return "no data";
+  }
+  return staff.map( (st, index) => {
+    return <p key = {index}>{st.id} {st.name}</p>
+  })
 }
 
 export default App;
