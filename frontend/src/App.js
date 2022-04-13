@@ -1,12 +1,12 @@
 import { Button } from "antd";
+import { getAllStaff } from './client.js'
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <Button type="primary">Primary Button</Button>
-    </div>
-  );
+  getAllStaff()
+    .then(res => res.json())
+    .then(console.log)
+  return "React"
 }
 
 export default App;
