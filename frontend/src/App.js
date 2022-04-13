@@ -8,7 +8,10 @@ function App() {
   const fetchStaff = () =>
     getAllStaff()
       .then(res => res.json())
-      .then(console.log)
+      .then(data => {
+        console.log(data);
+        setStaff(data);
+      })
 
   useEffect(() => {
     console.log("aaaaaaaaaaaaaaaaaaa");
