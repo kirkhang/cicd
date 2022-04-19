@@ -14,7 +14,7 @@
 	<name>cicd</name>
 	<description>Cicd project for Spring Boot</description>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -56,17 +56,17 @@
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
-				<version>2.5.2</version>
+				<version>3.2.1</version>
 				<configuration>
 					<from>
-						<image>openjdk:15</image>
+						<image>openjdk:17</image>
 						<auth>
 							<username>kirk326</username>
 							<password>Vy5,=GkEc/m.*Dc</password>
 						</auth>
 					</from>
 					<to>
-						<image>gcr.io/my-gcp-project/my-app</image>
+						<image>kirk326/test:cicd</image>
 						<auth>
 							<username>kirk326</username>
 							<password>Vy5,=GkEc/m.*Dc</password>
