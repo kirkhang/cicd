@@ -15,6 +15,8 @@
 	<description>Cicd project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<app.image.name>springboot-react-cicd</app.image.name>
+		<app.image.tag/>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -84,6 +86,136 @@
 		</plugins>
 	</build>
 	<profiles>
+		<profile>
+			<id>jib-push-to-dockerhub</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>3.2.1</version>
+						<configuration>
+							<from>
+								<image>openjdk:17</image>
+								<auth>
+									<username>kirk326</username>
+									<password>Vy5,=GkEc/m.*Dc</password>
+								</auth>
+							</from>
+							<container>
+								<mainClass>com.example.cicd.CicdApplication</mainClass>
+								<ports>
+									<port>8080</port>
+								</ports>
+								<format>OCI</format>
+							</container>
+						</configuration>
+						<executions>
+							<execution>
+								<id>push-custom-tag</id>
+								<phase>package</phase>
+								<configuration>
+									<to>
+										<image>kirk326/${app.image.name}:${app.image.tag}</image>
+										<auth>
+											<username>kirk326</username>
+											<password>Vy5,=GkEc/m.*Dc</password>
+										</auth>
+									</to>
+								</configuration>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>push-latest-tag</id>
+								<phase>package</phase>
+								<configuration>
+									<to>
+										<image>kirk326/${app.image.name}:latest</image>
+										<auth>
+											<username>kirk326</username>
+											<password>Vy5,=GkEc/m.*Dc</password>
+										</auth>
+									</to>
+								</configuration>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jib-push-to-local</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>3.2.1</version>
+						<configuration>
+							<from>
+								<image>openjdk:17</image>
+								<auth>
+									<username>kirk326</username>
+									<password>Vy5,=GkEc/m.*Dc</password>
+								</auth>
+							</from>
+							<container>
+								<mainClass>com.example.cicd.CicdApplication</mainClass>
+								<ports>
+									<port>8080</port>
+								</ports>
+								<format>OCI</format>
+							</container>
+						</configuration>
+						<executions>
+							<execution>
+								<id>push-custom-tag</id>
+								<phase>package</phase>
+								<configuration>
+									<to>
+										<image>kirk326/${app.image.name}:${app.image.tag}</image>
+										<auth>
+											<username>kirk326</username>
+											<password>Vy5,=GkEc/m.*Dc</password>
+										</auth>
+									</to>
+								</configuration>
+								<goals>
+									<goal>dockerBuild</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>push-latest-tag</id>
+								<phase>package</phase>
+								<configuration>
+									<to>
+										<image>kirk326/${app.image.name}:latest</image>
+										<auth>
+											<username>kirk326</username>
+											<password>Vy5,=GkEc/m.*Dc</password>
+										</auth>
+									</to>
+								</configuration>
+								<goals>
+									<goal>dockerBuild</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>build-frontend</id>
 			<activation>
